@@ -35,6 +35,7 @@ class CameraScreen extends Component {
         // Camera Permission
         const { status } = await Permissions.askAsync(Permissions.CAMERA);
         this.setState({ hasPermission: status === 'granted' });
+        // console.log(await this.camera.getAvailablePictureSizesAsync("16:9"));
     }
 
     handleCameraType = () => {
@@ -82,8 +83,16 @@ class CameraScreen extends Component {
         }
         else {
             return (
-                <View style={{ flex: 1 }}>
-                    <Camera style={{ flex: 1 }} type={this.state.type} ref={ref => {this.camera = ref}}>
+                <View
+                    style={styles.camera}
+                >
+                    <Camera
+                        style={{ flex: 1 }}
+                        type={this.state.type}
+                        ref={ref => {this.camera = ref}}
+                        pictureSize={"352x288"}
+                        // pictureSize="640x480"
+                    >
                         <View style={{flex:1, flexDirection:"row",justifyContent:"space-between",margin:50}}>
                             {/* <TouchableOpacity
                                 style={{
@@ -138,5 +147,10 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+
+    camera: {
+        width: 500,
+        height: 500
     }
 })
